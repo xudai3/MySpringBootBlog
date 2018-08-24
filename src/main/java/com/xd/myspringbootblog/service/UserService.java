@@ -5,6 +5,7 @@ import com.xd.myspringbootblog.dao.UserDao;
 import com.xd.myspringbootblog.entity.LoginLog;
 import com.xd.myspringbootblog.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -55,19 +56,20 @@ public class UserService {
         return userDao.getUserByUserName(userName);
     }
 
+    @Cacheable(value = "10m", key = "'userId_' + #userId")
     public User getUserByUserId(int userId) {
-        String key = "userId_" + userId;
-        ValueOperations<String, User> valueOperations = redisTemplate.opsForValue();
-        boolean hasKey = redisTemplate.hasKey(key);
-        if(hasKey){
-            System.out.println("Already has key:" + key);
-            return valueOperations.get(key);
-        }
-        System.out.println("Have not found key:" + key);
-        User user = userDao.getUserByUserId(userId);
-        valueOperations.set(key, user, 2, TimeUnit.HOURS);
-        return user;
-        // return userDao.getUserByUserId(userId);
+//        String key = "userId_" + userId;
+//        ValueOperations<String, User> valueOperations = redisTemplate.opsForValue();
+//        boolean hasKey = redisTemplate.hasKey(key);
+//        if(hasKey){
+//            System.out.println("Already has key:" + key);
+//            return valueOperations.get(key);
+//        }
+//        System.out.println("Have not found key:" + key);
+//        User user = userDao.getUserByUserId(userId);
+//        valueOperations.set(key, user, 2, TimeUnit.MINUTES);
+//        return user;
+        return userDao.getUserByUserId(userId);
     }
 
     public List<User> listUsers(){

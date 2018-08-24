@@ -2,7 +2,7 @@ package com.xd.myspringbootblog.response;
 
 import java.io.Serializable;
 
-public class Response implements Serializable{
+public class Response{
     private static final String OK = "ok";
     private static final String ERROR = "error";
 
@@ -44,6 +44,14 @@ public class Response implements Serializable{
     public void setStatusCode(StatusCode statusCode){
         this.code = statusCode.getCode();
         this.message = statusCode.getMessage();
+    }
+
+    public Integer getCode(){
+        return code;
+    }
+
+    public String getMessage(){
+        return message;
     }
 
     public Object getData(){

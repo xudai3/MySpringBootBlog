@@ -1,7 +1,9 @@
 package com.xd.myspringbootblog.controller;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.xd.myspringbootblog.entity.Article;
 import com.xd.myspringbootblog.entity.User;
 import com.xd.myspringbootblog.response.Response;
