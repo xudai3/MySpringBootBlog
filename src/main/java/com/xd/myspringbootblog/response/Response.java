@@ -3,8 +3,6 @@ package com.xd.myspringbootblog.response;
 import java.io.Serializable;
 
 public class Response{
-    private static final String OK = "ok";
-    private static final String ERROR = "error";
 
     private Integer code;
     private String message;
@@ -18,8 +16,6 @@ public class Response{
     }
 
     public Response success(){
-//        Response resp = new Response();
-//        resp.setStatusCode(StatusCode.SUCCESS);
         setStatusCode(StatusCode.SUCCESS);
         return this;
     }
@@ -27,6 +23,12 @@ public class Response{
     public Response success(Object data){
         setStatusCode(StatusCode.SUCCESS);
         this.data = data;
+        return this;
+    }
+
+    public Response failure(StatusCode statusCode, String message){
+        setStatusCode(statusCode);
+        setMessage(message);
         return this;
     }
 
@@ -46,24 +48,36 @@ public class Response{
         this.message = statusCode.getMessage();
     }
 
-    public Integer getCode(){
+    public Integer getCode() {
         return code;
     }
 
-    public String getMessage(){
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
         return message;
     }
 
-    public Object getData(){
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Object getData() {
         return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
     }
 
     @Override
     public String toString(){
         return "Response:{" +
                 "code=" + this.code +
-                ",message=" + this.message +
-                ",data={" + data.toString() + "}" +
+                ", message='" + this.message + '\'' +
+                ", data={" + data.toString() + "}" +
                 "}";
     }
 

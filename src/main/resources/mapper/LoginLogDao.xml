@@ -4,6 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xd.myspringbootblog.dao.LoginLogDao">
     <insert id="saveLoginLog" parameterType="LoginLog">
-        INSERT INTO t_login_log VALUES (#{userId}, #{ip}, #{loginDate})
+        INSERT INTO t_login_log(
+            user_id,
+            ip,
+            login_date)
+        VALUES (
+            #{userId},
+            #{ip},
+            #{loginDate})
     </insert>
 </mapper>

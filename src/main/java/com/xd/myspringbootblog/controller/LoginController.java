@@ -2,6 +2,10 @@ package com.xd.myspringbootblog.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xd.myspringbootblog.authorization.annotation.Authorization;
+import com.xd.myspringbootblog.authorization.entity.Token;
+import com.xd.myspringbootblog.authorization.manager.JWTTokenManager;
+import com.xd.myspringbootblog.authorization.manager.TokenManager;
 import com.xd.myspringbootblog.entity.User;
 import com.xd.myspringbootblog.response.Response;
 import com.xd.myspringbootblog.response.StatusCode;
@@ -18,14 +22,23 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/v1/{uid}/sign_out", method = RequestMethod.GET)
-    public Response signOut(@PathVariable int uid){
+    @Autowired
+    private JWTTokenManager tokenManager;
+
+    @RequestMapping(value = "/v1/session", method = RequestMethod.GET)
+    public Response getToken(){
+        Response resp = new Response();
+        return resp;
+    }
+
+    @RequestMapping(value = "/v1/session", method = RequestMethod.DELETE)
+    public Response signOut(){
         Response resp = new Response();
         return resp;
     }
 
     @RequestMapping(
-            value = "/v1/sign_in",
+            value = "/v1/session",
             method = RequestMethod.POST,
             produces = "application/json",
             consumes = "application/json")
@@ -49,11 +62,16 @@ public class LoginController {
 
         userService.loginSuccess(loginUser);
 
-        return resp.success(loginUser);
+        Token token = tokenManager.createToken(loginUser.getUserId());
+
+        return resp.success(token);
 
     }
-    @RequestMapping(value = "/v1/sign_up", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-    public Response signUp(){
+
+    @RequestMapping(
+            value = "/v1/session",
+            method = RequestMethod.PUT)
+    public Response updateSession(){
         Response resp = new Response();
         return resp;
     }

@@ -4,20 +4,20 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class User implements Serializable {
-    private int userId;
+    private Integer userId;
     private String userName;
     private String password;
-    private int credits;
+    private Integer credits;
     private String lastIp;
     private Date lastVisit;
 
     public User(){
     }
 
-    public void setUserId(int userId){
+    public void setUserId(Integer userId){
         this.userId = userId;
     }
-    public int getUserId(){
+    public Integer getUserId(){
         return userId;
     }
     public void setUserName(String userName){
@@ -32,10 +32,10 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    public int getCredits() {
+    public Integer getCredits() {
         return credits;
     }
-    public void setCredits(int credits) {
+    public void setCredits(Integer credits) {
         this.credits = credits;
     }
     public String getLastIp() {
@@ -50,4 +50,17 @@ public class User implements Serializable {
     public void setLastVisit(Date lastVisit) {
         this.lastVisit = lastVisit;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", credits=" + credits +
+                ", lastIp='" + lastIp + '\'' +
+                ", lastVisit=" + lastVisit +
+                '}';
+    }
+
 }

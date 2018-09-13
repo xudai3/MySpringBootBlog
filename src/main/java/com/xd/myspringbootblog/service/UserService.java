@@ -39,16 +39,17 @@ public class UserService {
         }
         return flag;
     }
-    public boolean removeUser(int userId){
-        boolean flag = false;
-        String key = "userId_" + userId;
-        ValueOperations<String, User> valueOperations = redisTemplate.opsForValue();
-        boolean hasKey = redisTemplate.hasKey(key);
-        if(hasKey){
-            System.out.println("Already has key:" + key);
-            redisTemplate.delete(key);
-        }
-        return flag;
+    public boolean removeUser(Integer userId){
+//        boolean flag = false;
+//        String key = "userId_" + userId;
+//        ValueOperations<String, User> valueOperations = redisTemplate.opsForValue();
+//        boolean hasKey = redisTemplate.hasKey(key);
+//        if(hasKey){
+//            System.out.println("Already has key:" + key);
+//            redisTemplate.delete(key);
+//        }
+//        return flag;
+        return userDao.removeUser(userId);
 
     }
 
@@ -57,7 +58,7 @@ public class UserService {
     }
 
     @Cacheable(value = "10m", key = "'userId_' + #userId")
-    public User getUserByUserId(int userId) {
+    public User getUserByUserId(Integer userId) {
 //        String key = "userId_" + userId;
 //        ValueOperations<String, User> valueOperations = redisTemplate.opsForValue();
 //        boolean hasKey = redisTemplate.hasKey(key);

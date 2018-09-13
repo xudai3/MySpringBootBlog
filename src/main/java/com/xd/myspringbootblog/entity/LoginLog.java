@@ -4,26 +4,26 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class LoginLog implements Serializable {
-    private int loginLogId;
-    private int userId;
+    private Integer loginLogId;
+    private Integer userId;
     private String ip;
     private Date loginDate;
 
     public LoginLog(){
     }
 
-    public int getLoginLogId(){
+    public Integer getLoginLogId(){
         return loginLogId;
     }
 
-    public void setLoginLogId(int loginLogId){
+    public void setLoginLogId(Integer loginLogId){
         this.loginLogId = loginLogId;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
     public String getIp() {
@@ -37,5 +37,15 @@ public class LoginLog implements Serializable {
     }
     public void setLoginDate(Date loginDate) {
         this.loginDate = loginDate;
+    }
+
+    @Override
+    public String toString() {
+        return "LoginLog{" +
+                "loginLogId=" + loginLogId +
+                ", userId=" + userId +
+                ", ip='" + ip + '\'' +
+                ", loginDate=" + loginDate +
+                '}';
     }
 }

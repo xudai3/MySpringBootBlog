@@ -70,6 +70,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         return new KeyGenerator() {
             @Override
             public Object generate(Object target, Method method, Object... params) {
+                logger.info("Custom KeyGenerator");
                 StringBuilder sb = new StringBuilder();
                 sb.append(target.getClass().getName());
                 sb.append(".").append(method.getName()).append("_");
@@ -92,6 +93,9 @@ public class RedisConfig extends CachingConfigurerSupport {
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory){
 //        RedisCacheManager redisCacheManager = RedisCacheManager.create(redisConnectionFactory);
 //        return redisCacheManager;
+
+        logger.info("Custom CacheManager");
+
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
         config = config.entryTtl(Duration.ofMinutes(2)).disableCachingNullValues();
 
@@ -119,6 +123,9 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean(name = "redisTemplate")
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory){
+
+        logger.info("Custom RedisTemplate");
+
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
 

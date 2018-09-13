@@ -11,15 +11,15 @@ import java.util.List;
 @Repository
 public interface ArticleDao {
 
-    List<Article> listArticlesByUserId(int userId);
+    List<Article> listArticlesByUserId(Integer userId);
 
-    Article getArticleByArticleId(int articleId);
+    Article getArticleByArticleId(Integer articleId);
 
-    List<Article> listArticlesByTagId(int tagId);
+    List<Article> listArticlesByTagId(Integer tagId);
 
     boolean saveArticle(Article article);
 
-    boolean removeArticleByArticleId(int articleId);
+    boolean removeArticleByArticleId(Integer articleId);
 
     boolean updateArticle(Article article);
 }

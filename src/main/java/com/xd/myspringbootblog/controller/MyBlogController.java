@@ -18,7 +18,7 @@ public class MyBlogController {
     ArticleService articleService;
 
     @RequestMapping(value = "/v1/users/{uid}/articles", method = RequestMethod.GET)
-    public Response initMainPage(@PathVariable int uid){
+    public Response initMainPage(@PathVariable Integer uid){
         System.out.println("Article List Init...");
 
         Response resp = new Response();
@@ -26,7 +26,7 @@ public class MyBlogController {
         List<Article> articles = articleService.listArticlesByUserId(uid);
 
         if(articles.isEmpty()){
-            return resp.failure(StatusCode.RESULE_DATA_NONE);
+            return resp.failure(StatusCode.DATA_NOT_FOUND);
         }else return resp.success(articles);
     }
 }

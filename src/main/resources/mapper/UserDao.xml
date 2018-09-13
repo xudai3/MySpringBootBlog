@@ -40,10 +40,13 @@
         INSERT INTO t_user(user_name, password)
                 VALUES (#{userName}, #{password})
     </insert>
+    <delete id="removeUser" parameterType="int">
+        DELETE FROM t_user WHERE user_id = #{userId}
+    </delete>
     <update id="updateLoginInfo" parameterType="User">
         UPDATE t_user SET
             last_visit = #{lastVisit},
-            last_ip = #{userIp},
+            last_ip = #{lastIp},
             credits = #{credits}
         WHERE user_id = #{userId}
     </update>

@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LoginLogDao {
 
-    void saveLoginLog(LoginLog loginLog);
+    boolean saveLoginLog(LoginLog loginLog);
 }

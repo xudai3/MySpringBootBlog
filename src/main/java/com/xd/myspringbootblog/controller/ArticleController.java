@@ -36,7 +36,7 @@ public class ArticleController {
         Article article = articleService.getArticleByArticleId(aid);
         if(article == null){
             System.out.println("Not Found...");
-            return resp.failure(StatusCode.RESULE_DATA_NONE);
+            return resp.failure(StatusCode.DATA_NOT_FOUND);
         }else return resp.success(article);
     }
 
@@ -54,7 +54,7 @@ public class ArticleController {
             articleAuthor = userService.getUserByUserId(article.getUserId());
             if(articleAuthor == null){
                 System.out.println("Can not get articleAuthor");
-                return resp.failure(StatusCode.RESULE_DATA_NONE);
+                return resp.failure(StatusCode.DATA_NOT_FOUND);
             }
         }catch (Exception e){
             e.printStackTrace();

@@ -3,21 +3,31 @@ package com.xd.myspringbootblog.controller;
 import com.xd.myspringbootblog.entity.User;
 import com.xd.myspringbootblog.response.Response;
 import com.xd.myspringbootblog.service.UserService;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
-
+@Api(value = "users", description = "users API")
 @CrossOrigin
 @RestController
 public class UserController {
     @Autowired
     private UserService userService;
 
+    @ApiOperation(
+            value = "get user by uid",
+            notes = "get user by uid",
+            response = User.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 405, message = "Invalid input", response = User.class)})
     @RequestMapping(value = "/v1/users/{uid}", method = RequestMethod.GET)
-    public Response getUserInfo(@PathVariable int uid){
+    public Response getUser(@ApiParam(value = "uid", required = true) @PathVariable Integer uid){
         System.out.println("getting user info...");
+        System.out.println(uid);
 
         Response resp = new Response();
         User getUser = userService.getUserByUserId(uid);
@@ -26,8 +36,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/v1/users", method = RequestMethod.POST)
-    public Response addUser(@RequestBody User user){
-        System.out.println("adding user...");
+    public Response saveUser(@RequestBody User user, HttpServletRequest request){
+        System.out.println("Signing up... adding user...");
+
+        String loginIp = request.getRemoteAddr();
+        Date loginDate = new Date();
+        user.setLastIp(loginIp);
+        user.setLastVisit(loginDate);
 
         Response resp = new Response();
         userService.saveUser(user);
@@ -36,8 +51,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/v1/users", method = RequestMethod.DELETE)
-    public Response deleteUser(){
+    public Response removeUser(@PathVariable Integer uid){
         Response resp = new Response();
+        userService.removeUser(uid);
 
         return resp.success();
     }
@@ -50,7 +66,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/v1/users", method = RequestMethod.GET)
-    public Response getUserList(){
+    public Response listUser(){
         System.out.println("getting user list...");
         Response resp = new Response();
         List<User> userList = userService.listUsers();

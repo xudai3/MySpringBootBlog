@@ -1,0 +1,47 @@
+= REST API Docs
+baseUrl: http://localhost:8080
+:toc: left
+:toclevels: 3
+:toc-title: API
+:doctype: book
+
+== Response Data Example
+|===
+| 字段 | 类型 | 解释
+
+| code
+| int
+| 1为成功，失败则返回自定义状态码
+
+| msg
+| String
+| 响应附带的消息
+
+| data
+| Object
+| 请求的数据
+|===
+
+== users
+
+=== get-user-by-id
+
+.HTTP Request
+include::{snippets}/get-user-by-id/http-request.adoc[]
+
+include::{snippets}/get-user-by-id/path-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/get-user-by-id/http-response.adoc[]
+
+include::{snippets}/get-user-by-id/response-fields.adoc[]
+
+=== get-user-list
+
+.HTTP Request
+include::{snippets}/get-user-list/http-request.adoc[]
+
+.HTTP Response
+include::{snippets}/get-user-list/http-response.adoc[]
+
+include::{snippets}/get-user-list/response-fields.adoc[]
