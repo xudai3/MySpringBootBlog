@@ -1,8 +1,6 @@
 package com.xd.myspringbootblog.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xd.myspringbootblog.entity.Article;
+import com.xd.myspringbootblog.entity.ArticleDO;
 import com.xd.myspringbootblog.response.Response;
 import com.xd.myspringbootblog.response.StatusCode;
 import com.xd.myspringbootblog.service.ArticleService;
@@ -23,7 +21,7 @@ public class MyBlogController {
 
         Response resp = new Response();
 
-        List<Article> articles = articleService.listArticlesByUserId(uid);
+        List<ArticleDO> articles = articleService.listArticlesByUserId(uid);
 
         if(articles.isEmpty()){
             return resp.failure(StatusCode.DATA_NOT_FOUND);

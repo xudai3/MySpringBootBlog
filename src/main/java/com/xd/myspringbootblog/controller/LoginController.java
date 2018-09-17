@@ -1,12 +1,8 @@
 package com.xd.myspringbootblog.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xd.myspringbootblog.authorization.annotation.Authorization;
 import com.xd.myspringbootblog.authorization.entity.Token;
 import com.xd.myspringbootblog.authorization.manager.JWTTokenManager;
-import com.xd.myspringbootblog.authorization.manager.TokenManager;
-import com.xd.myspringbootblog.entity.User;
+import com.xd.myspringbootblog.entity.UserDO;
 import com.xd.myspringbootblog.response.Response;
 import com.xd.myspringbootblog.response.StatusCode;
 import com.xd.myspringbootblog.service.UserService;
@@ -42,7 +38,7 @@ public class LoginController {
             method = RequestMethod.POST,
             produces = "application/json",
             consumes = "application/json")
-    public Response signIn(@RequestBody User user, HttpServletRequest request){
+    public Response signIn(@RequestBody UserDO user, HttpServletRequest request){
         System.out.println("sign_in...");
 
         Response resp = new Response();
@@ -53,7 +49,7 @@ public class LoginController {
             return resp.failure(StatusCode.USER_LOGIN_ERROR);
         }
 
-        User loginUser = userService.getUserByUserName(user.getUserName());
+        UserDO loginUser = userService.getUserByUserName(user.getUserName());
 
         String loginIp = request.getRemoteAddr();
         Date loginDate = new Date();
@@ -62,7 +58,7 @@ public class LoginController {
 
         userService.loginSuccess(loginUser);
 
-        Token token = tokenManager.createToken(loginUser.getUserId());
+        Token token = tokenManager.createToken(loginUser.getPkUserId());
 
         return resp.success(token);
 

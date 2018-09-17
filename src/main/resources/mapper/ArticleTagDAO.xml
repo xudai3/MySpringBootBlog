@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xd.myspringbootblog.dao.ArticleTagDAO">
+  <resultMap id="BaseResultMap" type="com.xd.myspringbootblog.entity.ArticleTagDO">
+    <id column="pk_article_id" jdbcType="INTEGER" property="pkArticleId" />
+    <id column="pk_tag_id" jdbcType="INTEGER" property="pkTagId" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pk_article_id, pk_tag_id, gmt_create, gmt_modified
+  </sql>
+  <select id="getArticleTagByArticleTagId" parameterType="com.xd.myspringbootblog.entity.ArticleTagDOKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mb_article_tag
+    where pk_article_id = #{pkArticleId,jdbcType=INTEGER}
+      and pk_tag_id = #{pkTagId,jdbcType=INTEGER}
+  </select>
+  <delete id="removeArticleTagByArticleTagId" parameterType="com.xd.myspringbootblog.entity.ArticleTagDOKey">
+    delete from mb_article_tag
+    where pk_article_id = #{pkArticleId,jdbcType=INTEGER}
+      and pk_tag_id = #{pkTagId,jdbcType=INTEGER}
+  </delete>
+  <insert id="saveArticleTag" parameterType="com.xd.myspringbootblog.entity.ArticleTagDO">
+    insert into mb_article_tag (pk_article_id, pk_tag_id, gmt_create, 
+      gmt_modified)
+    values (#{pkArticleId,jdbcType=INTEGER}, #{pkTagId,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="saveArticleTagSelective" parameterType="com.xd.myspringbootblog.entity.ArticleTagDO">
+    insert into mb_article_tag
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pkArticleId != null">
+        pk_article_id,
+      </if>
+      <if test="pkTagId != null">
+        pk_tag_id,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pkArticleId != null">
+        #{pkArticleId,jdbcType=INTEGER},
+      </if>
+      <if test="pkTagId != null">
+        #{pkTagId,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByArticleTagIdSelective" parameterType="com.xd.myspringbootblog.entity.ArticleTagDO">
+    update mb_article_tag
+    <set>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pk_article_id = #{pkArticleId,jdbcType=INTEGER}
+      and pk_tag_id = #{pkTagId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByArticleTagId" parameterType="com.xd.myspringbootblog.entity.ArticleTagDO">
+    update mb_article_tag
+    set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where pk_article_id = #{pkArticleId,jdbcType=INTEGER}
+      and pk_tag_id = #{pkTagId,jdbcType=INTEGER}
+  </update>
+</mapper>

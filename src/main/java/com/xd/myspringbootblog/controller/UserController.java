@@ -1,6 +1,6 @@
 package com.xd.myspringbootblog.controller;
 
-import com.xd.myspringbootblog.entity.User;
+import com.xd.myspringbootblog.entity.UserDO;
 import com.xd.myspringbootblog.response.Response;
 import com.xd.myspringbootblog.service.UserService;
 import io.swagger.annotations.*;
@@ -21,22 +21,22 @@ public class UserController {
     @ApiOperation(
             value = "get user by uid",
             notes = "get user by uid",
-            response = User.class)
+            response = UserDO.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 405, message = "Invalid input", response = User.class)})
+            @ApiResponse(code = 405, message = "Invalid input", response = UserDO.class)})
     @RequestMapping(value = "/v1/users/{uid}", method = RequestMethod.GET)
     public Response getUser(@ApiParam(value = "uid", required = true) @PathVariable Integer uid){
         System.out.println("getting user info...");
         System.out.println(uid);
 
         Response resp = new Response();
-        User getUser = userService.getUserByUserId(uid);
+        UserDO getUser = userService.getUserByUserId(uid);
 
         return resp.success(getUser);
     }
 
     @RequestMapping(value = "/v1/users", method = RequestMethod.POST)
-    public Response saveUser(@RequestBody User user, HttpServletRequest request){
+    public Response saveUser(@RequestBody UserDO user, HttpServletRequest request){
         System.out.println("Signing up... adding user...");
 
         String loginIp = request.getRemoteAddr();
@@ -53,7 +53,7 @@ public class UserController {
     @RequestMapping(value = "/v1/users", method = RequestMethod.DELETE)
     public Response removeUser(@PathVariable Integer uid){
         Response resp = new Response();
-        userService.removeUser(uid);
+        userService.removeUserByUserId(uid);
 
         return resp.success();
     }
@@ -69,7 +69,7 @@ public class UserController {
     public Response listUser(){
         System.out.println("getting user list...");
         Response resp = new Response();
-        List<User> userList = userService.listUsers();
+        List<UserDO> userList = userService.listAllUsers();
         System.out.println(resp.success(userList).toString());
         return resp.success(userList);
     }

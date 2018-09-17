@@ -1,19 +1,16 @@
 package com.xd.myspringbootblog.controller;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.xd.myspringbootblog.entity.Article;
-import com.xd.myspringbootblog.entity.User;
+import com.xd.myspringbootblog.entity.ArticleDO;
+import com.xd.myspringbootblog.entity.UserDO;
 import com.xd.myspringbootblog.response.Response;
 import com.xd.myspringbootblog.response.StatusCode;
 import com.xd.myspringbootblog.service.ArticleService;
 import com.xd.myspringbootblog.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 @CrossOrigin
@@ -24,6 +21,7 @@ public class ArticleController {
     @Autowired
     UserService userService;
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping(
             value = "/v1/articles/{aid}",
@@ -33,7 +31,7 @@ public class ArticleController {
 
         Response resp = new Response();
 
-        Article article = articleService.getArticleByArticleId(aid);
+        ArticleDO article = articleService.getArticleByArticleId(aid);
         if(article == null){
             System.out.println("Not Found...");
             return resp.failure(StatusCode.DATA_NOT_FOUND);
@@ -43,11 +41,11 @@ public class ArticleController {
     @RequestMapping(
             value = "/v1/articles",
             method = RequestMethod.POST)
-    public Response saveArticle(@RequestBody Article article){
+    public Response saveArticle(@RequestBody ArticleDO article){
         System.out.println("adding article...");
 
         Response resp = new Response();
-        User articleAuthor = new User();
+        UserDO articleAuthor = new UserDO();
         boolean sqlSuccess = false;
 
         try{
@@ -60,14 +58,10 @@ public class ArticleController {
             e.printStackTrace();
         }
         article.setArticleAuthor(articleAuthor.getUserName());
-        article.setArticleStatus("public");
-        article.setCreateDate(new Date());
-//        System.out.println(article.getUserId());
-//        System.out.println(article.getArticleTitle());
-//        System.out.println(article.getArticleContent());
-//        System.out.println(article.getArticleAuthor());
-//        System.out.println(article.getArticleStatus());
-//        System.out.println(article.getCreateDate());
+        article.setArticleStatus(article.getArticleStatus());
+        Date articleCreateDate = new Date();
+        article.setGmtCreate(articleCreateDate);
+        article.setGmtModified(articleCreateDate);
         try{
             sqlSuccess = articleService.saveArticle(article);
         }catch (Exception e){
@@ -83,11 +77,11 @@ public class ArticleController {
             method = RequestMethod.PUT,
             produces = "application/json",
             consumes = "application/json")
-    public Response updateArticle(@RequestBody Article article){
+    public Response updateArticle(@RequestBody ArticleDO article){
         Response resp = new Response();
-        article.setChangeDate(new Date());
+        article.setGmtModified(new Date());
 
-        boolean sqlSuccess = articleService.updateArticle(article);
+        boolean sqlSuccess = articleService.updateArticleByArticleId(article);
 
         System.out.println("updating...");
         if(sqlSuccess) return resp.success();
