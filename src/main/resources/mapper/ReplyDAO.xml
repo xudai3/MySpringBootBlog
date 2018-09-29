@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xd.myspringbootblog.dao.ReplyDAO">
+  <resultMap id="BaseResultMap" type="com.xd.myspringbootblog.entity.ReplyDO">
+    <id column="pk_id" jdbcType="INTEGER" property="pkId" />
+    <result column="comment_id" jdbcType="INTEGER" property="commentId" />
+    <result column="reply_id" jdbcType="INTEGER" property="replyId" />
+    <result column="reply_type" jdbcType="TINYINT" property="replyType" />
+    <result column="reply_content" jdbcType="VARCHAR" property="replyContent" />
+    <result column="from_uid" jdbcType="INTEGER" property="fromUid" />
+    <result column="from_nickname" jdbcType="VARCHAR" property="fromNickname" />
+    <result column="from_avatar" jdbcType="VARCHAR" property="fromAvatar" />
+    <result column="to_uid" jdbcType="INTEGER" property="toUid" />
+    <result column="to_nickname" jdbcType="VARCHAR" property="toNickname" />
+    <result column="is_author" jdbcType="TINYINT" property="isAuthor" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pk_id, comment_id, reply_id, reply_type, reply_content, from_uid, from_nickname, 
+    from_avatar, to_uid, to_nickname, is_author, gmt_create, gmt_modified
+  </sql>
+  <select id="getByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mb_reply
+    where pk_id = #{pkId,jdbcType=INTEGER}
+  </select>
+  <delete id="removeByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mb_reply
+    where pk_id = #{pkId,jdbcType=INTEGER}
+  </delete>
+  <insert id="save" keyColumn="pk_id" keyProperty="pkId" parameterType="com.xd.myspringbootblog.entity.ReplyDO" useGeneratedKeys="true">
+    insert into mb_reply (comment_id, reply_id, reply_type, 
+      reply_content, from_uid, from_nickname, 
+      from_avatar, to_uid, to_nickname, 
+      is_author, gmt_create, gmt_modified
+      )
+    values (#{commentId,jdbcType=INTEGER}, #{replyId,jdbcType=INTEGER}, #{replyType,jdbcType=TINYINT}, 
+      #{replyContent,jdbcType=VARCHAR}, #{fromUid,jdbcType=INTEGER}, #{fromNickname,jdbcType=VARCHAR}, 
+      #{fromAvatar,jdbcType=VARCHAR}, #{toUid,jdbcType=INTEGER}, #{toNickname,jdbcType=VARCHAR}, 
+      #{isAuthor,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="saveSelective" keyColumn="pk_id" keyProperty="pkId" parameterType="com.xd.myspringbootblog.entity.ReplyDO" useGeneratedKeys="true">
+    insert into mb_reply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commentId != null">
+        comment_id,
+      </if>
+      <if test="replyId != null">
+        reply_id,
+      </if>
+      <if test="replyType != null">
+        reply_type,
+      </if>
+      <if test="replyContent != null">
+        reply_content,
+      </if>
+      <if test="fromUid != null">
+        from_uid,
+      </if>
+      <if test="fromNickname != null">
+        from_nickname,
+      </if>
+      <if test="fromAvatar != null">
+        from_avatar,
+      </if>
+      <if test="toUid != null">
+        to_uid,
+      </if>
+      <if test="toNickname != null">
+        to_nickname,
+      </if>
+      <if test="isAuthor != null">
+        is_author,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commentId != null">
+        #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="replyId != null">
+        #{replyId,jdbcType=INTEGER},
+      </if>
+      <if test="replyType != null">
+        #{replyType,jdbcType=TINYINT},
+      </if>
+      <if test="replyContent != null">
+        #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUid != null">
+        #{fromUid,jdbcType=INTEGER},
+      </if>
+      <if test="fromNickname != null">
+        #{fromNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="fromAvatar != null">
+        #{fromAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="toUid != null">
+        #{toUid,jdbcType=INTEGER},
+      </if>
+      <if test="toNickname != null">
+        #{toNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="isAuthor != null">
+        #{isAuthor,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xd.myspringbootblog.entity.ReplyDO">
+    update mb_reply
+    <set>
+      <if test="commentId != null">
+        comment_id = #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="replyId != null">
+        reply_id = #{replyId,jdbcType=INTEGER},
+      </if>
+      <if test="replyType != null">
+        reply_type = #{replyType,jdbcType=TINYINT},
+      </if>
+      <if test="replyContent != null">
+        reply_content = #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUid != null">
+        from_uid = #{fromUid,jdbcType=INTEGER},
+      </if>
+      <if test="fromNickname != null">
+        from_nickname = #{fromNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="fromAvatar != null">
+        from_avatar = #{fromAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="toUid != null">
+        to_uid = #{toUid,jdbcType=INTEGER},
+      </if>
+      <if test="toNickname != null">
+        to_nickname = #{toNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="isAuthor != null">
+        is_author = #{isAuthor,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pk_id = #{pkId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xd.myspringbootblog.entity.ReplyDO">
+    update mb_reply
+    set comment_id = #{commentId,jdbcType=INTEGER},
+      reply_id = #{replyId,jdbcType=INTEGER},
+      reply_type = #{replyType,jdbcType=TINYINT},
+      reply_content = #{replyContent,jdbcType=VARCHAR},
+      from_uid = #{fromUid,jdbcType=INTEGER},
+      from_nickname = #{fromNickname,jdbcType=VARCHAR},
+      from_avatar = #{fromAvatar,jdbcType=VARCHAR},
+      to_uid = #{toUid,jdbcType=INTEGER},
+      to_nickname = #{toNickname,jdbcType=VARCHAR},
+      is_author = #{isAuthor,jdbcType=TINYINT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where pk_id = #{pkId,jdbcType=INTEGER}
+  </update>
+</mapper>

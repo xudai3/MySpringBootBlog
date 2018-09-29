@@ -7,21 +7,19 @@ import java.util.List;
 
 @Repository
 public interface ArticleDAO {
-    int removeArticleByArticleId(Integer pkArticleId);
+    int removeByPrimaryKey(Integer pkId);
 
-    int saveArticle(ArticleDO record);
+    int save(ArticleDO record);
 
-    int saveArticleSelective(ArticleDO record);
+    int saveSelective(ArticleDO record);
 
-    ArticleDO getArticleByArticleId(Integer pkArticleId);
+    ArticleDO getByPrimaryKey(Integer pkId);
 
-    List<ArticleDO> listArticlesByUserId(Integer userId);
+    List<ArticleDO> listAllByAuthorUid(Integer authorUid);
 
-    List<ArticleDO> listArticlesByTagId(Integer tagId);
+    List<ArticleDO> listAllByTagId(Integer tagId);
 
-    int updateArticleByArticleIdSelective(ArticleDO record);
+    int updateByPrimaryKeySelective(ArticleDO record);
 
-    int updateArticleByArticleIdWithBLOBs(ArticleDO record);
-
-    int updateArticleByArticleId(ArticleDO record);
+    int updateByPrimaryKey(ArticleDO record);
 }

@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * mb_login_log
+ * mb_user_auth
  * @author 
  */
-public class LoginLogDO implements Serializable {
+public class UserAuthDO implements Serializable {
     /**
-     * 登陆日志ID
+     * 主键ID
      */
     private Integer pkId;
 
@@ -19,14 +19,29 @@ public class LoginLogDO implements Serializable {
     private Integer userId;
 
     /**
-     * 登陆IP
+     * 登陆认证方式
      */
-    private String ip;
+    private String authType;
 
     /**
-     * 登陆时间
+     * 认证标识 username/email/phone/weibo/weixin
      */
-    private Date loginDate;
+    private String authIdentifier;
+
+    /**
+     * 密码凭证 password_hash/access_token
+     */
+    private String authCredential;
+
+    /**
+     * 上次登陆时间
+     */
+    private Date lastVisit;
+
+    /**
+     * 上次登陆IP
+     */
+    private String lastIp;
 
     /**
      * 创建时间
@@ -56,20 +71,44 @@ public class LoginLogDO implements Serializable {
         this.userId = userId;
     }
 
-    public String getIp() {
-        return ip;
+    public String getAuthType() {
+        return authType;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
+    public void setAuthType(String authType) {
+        this.authType = authType;
     }
 
-    public Date getLoginDate() {
-        return loginDate;
+    public String getAuthIdentifier() {
+        return authIdentifier;
     }
 
-    public void setLoginDate(Date loginDate) {
-        this.loginDate = loginDate;
+    public void setAuthIdentifier(String authIdentifier) {
+        this.authIdentifier = authIdentifier;
+    }
+
+    public String getAuthCredential() {
+        return authCredential;
+    }
+
+    public void setAuthCredential(String authCredential) {
+        this.authCredential = authCredential;
+    }
+
+    public Date getLastVisit() {
+        return lastVisit;
+    }
+
+    public void setLastVisit(Date lastVisit) {
+        this.lastVisit = lastVisit;
+    }
+
+    public String getLastIp() {
+        return lastIp;
+    }
+
+    public void setLastIp(String lastIp) {
+        this.lastIp = lastIp;
     }
 
     public Date getGmtCreate() {
@@ -99,11 +138,14 @@ public class LoginLogDO implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        LoginLogDO other = (LoginLogDO) that;
+        UserAuthDO other = (UserAuthDO) that;
         return (this.getPkId() == null ? other.getPkId() == null : this.getPkId().equals(other.getPkId()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getIp() == null ? other.getIp() == null : this.getIp().equals(other.getIp()))
-            && (this.getLoginDate() == null ? other.getLoginDate() == null : this.getLoginDate().equals(other.getLoginDate()))
+            && (this.getAuthType() == null ? other.getAuthType() == null : this.getAuthType().equals(other.getAuthType()))
+            && (this.getAuthIdentifier() == null ? other.getAuthIdentifier() == null : this.getAuthIdentifier().equals(other.getAuthIdentifier()))
+            && (this.getAuthCredential() == null ? other.getAuthCredential() == null : this.getAuthCredential().equals(other.getAuthCredential()))
+            && (this.getLastVisit() == null ? other.getLastVisit() == null : this.getLastVisit().equals(other.getLastVisit()))
+            && (this.getLastIp() == null ? other.getLastIp() == null : this.getLastIp().equals(other.getLastIp()))
             && (this.getGmtCreate() == null ? other.getGmtCreate() == null : this.getGmtCreate().equals(other.getGmtCreate()))
             && (this.getGmtModified() == null ? other.getGmtModified() == null : this.getGmtModified().equals(other.getGmtModified()));
     }
@@ -114,8 +156,11 @@ public class LoginLogDO implements Serializable {
         int result = 1;
         result = prime * result + ((getPkId() == null) ? 0 : getPkId().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
-        result = prime * result + ((getIp() == null) ? 0 : getIp().hashCode());
-        result = prime * result + ((getLoginDate() == null) ? 0 : getLoginDate().hashCode());
+        result = prime * result + ((getAuthType() == null) ? 0 : getAuthType().hashCode());
+        result = prime * result + ((getAuthIdentifier() == null) ? 0 : getAuthIdentifier().hashCode());
+        result = prime * result + ((getAuthCredential() == null) ? 0 : getAuthCredential().hashCode());
+        result = prime * result + ((getLastVisit() == null) ? 0 : getLastVisit().hashCode());
+        result = prime * result + ((getLastIp() == null) ? 0 : getLastIp().hashCode());
         result = prime * result + ((getGmtCreate() == null) ? 0 : getGmtCreate().hashCode());
         result = prime * result + ((getGmtModified() == null) ? 0 : getGmtModified().hashCode());
         return result;
@@ -129,8 +174,11 @@ public class LoginLogDO implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", pkId=").append(pkId);
         sb.append(", userId=").append(userId);
-        sb.append(", ip=").append(ip);
-        sb.append(", loginDate=").append(loginDate);
+        sb.append(", authType=").append(authType);
+        sb.append(", authIdentifier=").append(authIdentifier);
+        sb.append(", authCredential=").append(authCredential);
+        sb.append(", lastVisit=").append(lastVisit);
+        sb.append(", lastIp=").append(lastIp);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModified=").append(gmtModified);
         sb.append(", serialVersionUID=").append(serialVersionUID);

@@ -1,20 +1,21 @@
 package com.xd.myspringbootblog.dao;
 
 import com.xd.myspringbootblog.entity.ArticleTagDO;
-import com.xd.myspringbootblog.entity.ArticleTagDOKey;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface ArticleTagDAO {
-    int removeArticleTagByArticleTagId(ArticleTagDOKey key);
+    int removeByPrimaryKey(Integer pkId);
 
-    int saveArticleTag(ArticleTagDO record);
+    int save(ArticleTagDO record);
 
-    int saveArticleTagSelective(ArticleTagDO record);
+    int saveSelective(ArticleTagDO record);
 
-    ArticleTagDO getArticleTagByArticleTagId(ArticleTagDOKey key);
+    ArticleTagDO getByPrimaryKey(Integer pkId);
 
-    int updateByArticleTagIdSelective(ArticleTagDO record);
+    int updateByPrimaryKeySelective(ArticleTagDO record);
 
-    int updateByArticleTagId(ArticleTagDO record);
+    int updateByPrimaryKey(ArticleTagDO record);
 }

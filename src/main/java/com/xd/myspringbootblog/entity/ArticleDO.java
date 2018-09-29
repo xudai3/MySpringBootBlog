@@ -11,7 +11,7 @@ public class ArticleDO implements Serializable {
     /**
      * 文章id
      */
-    private Integer pkArticleId;
+    private Integer pkId;
 
     /**
      * 文章标题
@@ -31,7 +31,7 @@ public class ArticleDO implements Serializable {
     /**
      * 作者ID
      */
-    private Integer userId;
+    private Integer authorUid;
 
     /**
      * 阅读数
@@ -49,6 +49,11 @@ public class ArticleDO implements Serializable {
     private Integer commentCount;
 
     /**
+     * 评论数量
+     */
+    private Integer categoryId;
+
+    /**
      * 创建时间
      */
     private Date gmtCreate;
@@ -58,19 +63,14 @@ public class ArticleDO implements Serializable {
      */
     private Date gmtModified;
 
-    /**
-     * 文章内容
-     */
-    private String articleContent;
-
     private static final long serialVersionUID = 1L;
 
-    public Integer getPkArticleId() {
-        return pkArticleId;
+    public Integer getPkId() {
+        return pkId;
     }
 
-    public void setPkArticleId(Integer pkArticleId) {
-        this.pkArticleId = pkArticleId;
+    public void setPkId(Integer pkId) {
+        this.pkId = pkId;
     }
 
     public String getArticleTitle() {
@@ -97,12 +97,12 @@ public class ArticleDO implements Serializable {
         this.articleStatus = articleStatus;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getAuthorUid() {
+        return authorUid;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setAuthorUid(Integer authorUid) {
+        this.authorUid = authorUid;
     }
 
     public Integer getReadCount() {
@@ -129,6 +129,15 @@ public class ArticleDO implements Serializable {
         this.commentCount = commentCount;
     }
 
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
+
     public Date getGmtCreate() {
         return gmtCreate;
     }
@@ -145,14 +154,6 @@ public class ArticleDO implements Serializable {
         this.gmtModified = gmtModified;
     }
 
-    public String getArticleContent() {
-        return articleContent;
-    }
-
-    public void setArticleContent(String articleContent) {
-        this.articleContent = articleContent;
-    }
-
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -165,34 +166,34 @@ public class ArticleDO implements Serializable {
             return false;
         }
         ArticleDO other = (ArticleDO) that;
-        return (this.getPkArticleId() == null ? other.getPkArticleId() == null : this.getPkArticleId().equals(other.getPkArticleId()))
+        return (this.getPkId() == null ? other.getPkId() == null : this.getPkId().equals(other.getPkId()))
             && (this.getArticleTitle() == null ? other.getArticleTitle() == null : this.getArticleTitle().equals(other.getArticleTitle()))
             && (this.getArticleAuthor() == null ? other.getArticleAuthor() == null : this.getArticleAuthor().equals(other.getArticleAuthor()))
             && (this.getArticleStatus() == null ? other.getArticleStatus() == null : this.getArticleStatus().equals(other.getArticleStatus()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+            && (this.getAuthorUid() == null ? other.getAuthorUid() == null : this.getAuthorUid().equals(other.getAuthorUid()))
             && (this.getReadCount() == null ? other.getReadCount() == null : this.getReadCount().equals(other.getReadCount()))
             && (this.getLikeCount() == null ? other.getLikeCount() == null : this.getLikeCount().equals(other.getLikeCount()))
             && (this.getCommentCount() == null ? other.getCommentCount() == null : this.getCommentCount().equals(other.getCommentCount()))
+                && (this.getCommentCount() == null ? other.getCategoryId() == null : this.getCategoryId().equals(other.getCategoryId()))
             && (this.getGmtCreate() == null ? other.getGmtCreate() == null : this.getGmtCreate().equals(other.getGmtCreate()))
-            && (this.getGmtModified() == null ? other.getGmtModified() == null : this.getGmtModified().equals(other.getGmtModified()))
-            && (this.getArticleContent() == null ? other.getArticleContent() == null : this.getArticleContent().equals(other.getArticleContent()));
+            && (this.getGmtModified() == null ? other.getGmtModified() == null : this.getGmtModified().equals(other.getGmtModified()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getPkArticleId() == null) ? 0 : getPkArticleId().hashCode());
+        result = prime * result + ((getPkId() == null) ? 0 : getPkId().hashCode());
         result = prime * result + ((getArticleTitle() == null) ? 0 : getArticleTitle().hashCode());
         result = prime * result + ((getArticleAuthor() == null) ? 0 : getArticleAuthor().hashCode());
         result = prime * result + ((getArticleStatus() == null) ? 0 : getArticleStatus().hashCode());
-        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getAuthorUid() == null) ? 0 : getAuthorUid().hashCode());
         result = prime * result + ((getReadCount() == null) ? 0 : getReadCount().hashCode());
         result = prime * result + ((getLikeCount() == null) ? 0 : getLikeCount().hashCode());
         result = prime * result + ((getCommentCount() == null) ? 0 : getCommentCount().hashCode());
+        result = prime * result + ((getCategoryId() == null) ? 0 : getCategoryId().hashCode());
         result = prime * result + ((getGmtCreate() == null) ? 0 : getGmtCreate().hashCode());
         result = prime * result + ((getGmtModified() == null) ? 0 : getGmtModified().hashCode());
-        result = prime * result + ((getArticleContent() == null) ? 0 : getArticleContent().hashCode());
         return result;
     }
 
@@ -202,17 +203,17 @@ public class ArticleDO implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", pkArticleId=").append(pkArticleId);
+        sb.append(", pkId=").append(pkId);
         sb.append(", articleTitle=").append(articleTitle);
         sb.append(", articleAuthor=").append(articleAuthor);
         sb.append(", articleStatus=").append(articleStatus);
-        sb.append(", userId=").append(userId);
+        sb.append(", authorUid=").append(authorUid);
         sb.append(", readCount=").append(readCount);
         sb.append(", likeCount=").append(likeCount);
         sb.append(", commentCount=").append(commentCount);
+        sb.append(", categoryId=").append(categoryId);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModified=").append(gmtModified);
-        sb.append(", articleContent=").append(articleContent);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

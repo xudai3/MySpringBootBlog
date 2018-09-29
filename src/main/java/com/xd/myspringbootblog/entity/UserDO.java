@@ -11,32 +11,22 @@ public class UserDO implements Serializable {
     /**
      * 用户id
      */
-    private Integer pkUserId;
+    private Integer pkId;
 
     /**
-     * 用户名称
+     * 用户昵称
      */
-    private String userName;
+    private String nickname;
+
+    /**
+     * 用户头像
+     */
+    private String avatar;
 
     /**
      * 用户积分
      */
     private Integer credit;
-
-    /**
-     * 用户密码
-     */
-    private String password;
-
-    /**
-     * 上次登陆时间
-     */
-    private Date lastVisit;
-
-    /**
-     * 上次登陆IP
-     */
-    private String lastIp;
 
     /**
      * 创建时间
@@ -50,20 +40,28 @@ public class UserDO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getPkUserId() {
-        return pkUserId;
+    public Integer getPkId() {
+        return pkId;
     }
 
-    public void setPkUserId(Integer pkUserId) {
-        this.pkUserId = pkUserId;
+    public void setPkId(Integer pkId) {
+        this.pkId = pkId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public Integer getCredit() {
@@ -72,30 +70,6 @@ public class UserDO implements Serializable {
 
     public void setCredit(Integer credit) {
         this.credit = credit;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Date getLastVisit() {
-        return lastVisit;
-    }
-
-    public void setLastVisit(Date lastVisit) {
-        this.lastVisit = lastVisit;
-    }
-
-    public String getLastIp() {
-        return lastIp;
-    }
-
-    public void setLastIp(String lastIp) {
-        this.lastIp = lastIp;
     }
 
     public Date getGmtCreate() {
@@ -126,12 +100,10 @@ public class UserDO implements Serializable {
             return false;
         }
         UserDO other = (UserDO) that;
-        return (this.getPkUserId() == null ? other.getPkUserId() == null : this.getPkUserId().equals(other.getPkUserId()))
-            && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
+        return (this.getPkId() == null ? other.getPkId() == null : this.getPkId().equals(other.getPkId()))
+            && (this.getNickname() == null ? other.getNickname() == null : this.getNickname().equals(other.getNickname()))
+            && (this.getAvatar() == null ? other.getAvatar() == null : this.getAvatar().equals(other.getAvatar()))
             && (this.getCredit() == null ? other.getCredit() == null : this.getCredit().equals(other.getCredit()))
-            && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
-            && (this.getLastVisit() == null ? other.getLastVisit() == null : this.getLastVisit().equals(other.getLastVisit()))
-            && (this.getLastIp() == null ? other.getLastIp() == null : this.getLastIp().equals(other.getLastIp()))
             && (this.getGmtCreate() == null ? other.getGmtCreate() == null : this.getGmtCreate().equals(other.getGmtCreate()))
             && (this.getGmtModified() == null ? other.getGmtModified() == null : this.getGmtModified().equals(other.getGmtModified()));
     }
@@ -140,12 +112,10 @@ public class UserDO implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getPkUserId() == null) ? 0 : getPkUserId().hashCode());
-        result = prime * result + ((getUserName() == null) ? 0 : getUserName().hashCode());
+        result = prime * result + ((getPkId() == null) ? 0 : getPkId().hashCode());
+        result = prime * result + ((getNickname() == null) ? 0 : getNickname().hashCode());
+        result = prime * result + ((getAvatar() == null) ? 0 : getAvatar().hashCode());
         result = prime * result + ((getCredit() == null) ? 0 : getCredit().hashCode());
-        result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
-        result = prime * result + ((getLastVisit() == null) ? 0 : getLastVisit().hashCode());
-        result = prime * result + ((getLastIp() == null) ? 0 : getLastIp().hashCode());
         result = prime * result + ((getGmtCreate() == null) ? 0 : getGmtCreate().hashCode());
         result = prime * result + ((getGmtModified() == null) ? 0 : getGmtModified().hashCode());
         return result;
@@ -157,12 +127,10 @@ public class UserDO implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", pkUserId=").append(pkUserId);
-        sb.append(", userName=").append(userName);
+        sb.append(", pkId=").append(pkId);
+        sb.append(", nickname=").append(nickname);
+        sb.append(", avatar=").append(avatar);
         sb.append(", credit=").append(credit);
-        sb.append(", password=").append(password);
-        sb.append(", lastVisit=").append(lastVisit);
-        sb.append(", lastIp=").append(lastIp);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModified=").append(gmtModified);
         sb.append(", serialVersionUID=").append(serialVersionUID);

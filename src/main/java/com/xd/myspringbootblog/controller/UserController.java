@@ -1,9 +1,13 @@
 package com.xd.myspringbootblog.controller;
 
+import com.xd.myspringbootblog.entity.UserAuthDO;
 import com.xd.myspringbootblog.entity.UserDO;
+import com.xd.myspringbootblog.model.UserVO;
 import com.xd.myspringbootblog.response.Response;
 import com.xd.myspringbootblog.service.UserService;
 import io.swagger.annotations.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +22,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @ApiOperation(
             value = "get user by uid",
             notes = "get user by uid",
@@ -26,8 +32,7 @@ public class UserController {
             @ApiResponse(code = 405, message = "Invalid input", response = UserDO.class)})
     @RequestMapping(value = "/v1/users/{uid}", method = RequestMethod.GET)
     public Response getUser(@ApiParam(value = "uid", required = true) @PathVariable Integer uid){
-        System.out.println("getting user info...");
-        System.out.println(uid);
+        logger.info("getting user info...");
 
         Response resp = new Response();
         UserDO getUser = userService.getUserByUserId(uid);
@@ -36,13 +41,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/v1/users", method = RequestMethod.POST)
-    public Response saveUser(@RequestBody UserDO user, HttpServletRequest request){
-        System.out.println("Signing up... adding user...");
+    public Response saveUser(@RequestBody UserVO user, HttpServletRequest request){
+        logger.info("Signing up... adding user...");
 
         String loginIp = request.getRemoteAddr();
         Date loginDate = new Date();
-        user.setLastIp(loginIp);
-        user.setLastVisit(loginDate);
+        UserAuthDO userAuth = new UserAuthDO();
+        userAuth.setLastIp(loginIp);
+        userAuth.setLastVisit(loginDate);
 
         Response resp = new Response();
         userService.saveUser(user);
@@ -67,10 +73,10 @@ public class UserController {
 
     @RequestMapping(value = "/v1/users", method = RequestMethod.GET)
     public Response listUser(){
-        System.out.println("getting user list...");
+        logger.info("getting user list...");
         Response resp = new Response();
         List<UserDO> userList = userService.listAllUsers();
-        System.out.println(resp.success(userList).toString());
+        logger.info(resp.success(userList).toString());
         return resp.success(userList);
     }
 

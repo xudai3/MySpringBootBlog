@@ -5,15 +5,15 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LoginLogDAO {
-    int removeLoginLogByLoginLogId(Integer pkLoginLogId);
+    int removeByPrimaryKey(Integer pkId);
 
-    int saveLoginLog(LoginLogDO record);
+    int save(LoginLogDO record);
 
-    int saveLoginLogSelective(LoginLogDO record);
+    int saveSelective(LoginLogDO record);
 
-    LoginLogDO getLoginLogByLoginLogId(Integer pkLoginLogId);
+    LoginLogDO getByPrimaryKey(Integer pkId);
 
-    int updateByLoginLogIdSelective(LoginLogDO record);
+    int updateByPrimaryKeySelective(LoginLogDO record);
 
-    int updateByLoginLogId(LoginLogDO record);
+    int updateByPrimaryKey(LoginLogDO record);
 }

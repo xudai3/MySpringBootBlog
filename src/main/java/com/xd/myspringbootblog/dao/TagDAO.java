@@ -3,27 +3,17 @@ package com.xd.myspringbootblog.dao;
 import com.xd.myspringbootblog.entity.TagDO;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface TagDAO {
-    int removeTagByTagId(Integer pkTagId);
+    int removeByPrimaryKey(Integer pkId);
 
-    int saveTag(TagDO record);
+    int save(TagDO record);
 
-    int saveTagSelective(TagDO record);
+    int saveSelective(TagDO record);
 
-    TagDO getTagByTagId(Integer pkTagId);
+    TagDO getByPrimaryKey(Integer pkId);
 
-    TagDO getTagByTagName(String tagName);
+    int updateByPrimaryKeySelective(TagDO record);
 
-    List<TagDO> listAllTags();
-
-    List<TagDO> listTagsByTagType(String tagType);
-
-    List<TagDO> listTagsByArticleId(Integer articleId);
-
-    int updateByTagIdSelective(TagDO record);
-
-    int updateByTagId(TagDO record);
+    int updateByPrimaryKey(TagDO record);
 }

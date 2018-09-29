@@ -11,7 +11,7 @@ public class TagDO implements Serializable {
     /**
      * 标签ID
      */
-    private Integer pkTagId;
+    private Integer pkId;
 
     /**
      * 标签名称
@@ -35,12 +35,12 @@ public class TagDO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getPkTagId() {
-        return pkTagId;
+    public Integer getPkId() {
+        return pkId;
     }
 
-    public void setPkTagId(Integer pkTagId) {
-        this.pkTagId = pkTagId;
+    public void setPkId(Integer pkId) {
+        this.pkId = pkId;
     }
 
     public String getTagName() {
@@ -87,7 +87,7 @@ public class TagDO implements Serializable {
             return false;
         }
         TagDO other = (TagDO) that;
-        return (this.getPkTagId() == null ? other.getPkTagId() == null : this.getPkTagId().equals(other.getPkTagId()))
+        return (this.getPkId() == null ? other.getPkId() == null : this.getPkId().equals(other.getPkId()))
             && (this.getTagName() == null ? other.getTagName() == null : this.getTagName().equals(other.getTagName()))
             && (this.getTagType() == null ? other.getTagType() == null : this.getTagType().equals(other.getTagType()))
             && (this.getGmtCreate() == null ? other.getGmtCreate() == null : this.getGmtCreate().equals(other.getGmtCreate()))
@@ -98,7 +98,7 @@ public class TagDO implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getPkTagId() == null) ? 0 : getPkTagId().hashCode());
+        result = prime * result + ((getPkId() == null) ? 0 : getPkId().hashCode());
         result = prime * result + ((getTagName() == null) ? 0 : getTagName().hashCode());
         result = prime * result + ((getTagType() == null) ? 0 : getTagType().hashCode());
         result = prime * result + ((getGmtCreate() == null) ? 0 : getGmtCreate().hashCode());
@@ -112,7 +112,7 @@ public class TagDO implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", pkTagId=").append(pkTagId);
+        sb.append(", pkId=").append(pkId);
         sb.append(", tagName=").append(tagName);
         sb.append(", tagType=").append(tagType);
         sb.append(", gmtCreate=").append(gmtCreate);

@@ -2,37 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xd.myspringbootblog.dao.TagDAO">
   <resultMap id="BaseResultMap" type="com.xd.myspringbootblog.entity.TagDO">
-    <id column="pk_tag_id" jdbcType="INTEGER" property="pkTagId" />
+    <id column="pk_id" jdbcType="INTEGER" property="pkId" />
     <result column="tag_name" jdbcType="VARCHAR" property="tagName" />
     <result column="tag_type" jdbcType="VARCHAR" property="tagType" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
   <sql id="Base_Column_List">
-    pk_tag_id, tag_name, tag_type, gmt_create, gmt_modified
+    pk_id, tag_name, tag_type, gmt_create, gmt_modified
   </sql>
-  <select id="getTagByTagId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="getByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from mb_tag
-    where pk_tag_id = #{pkTagId,jdbcType=INTEGER}
+    where pk_id = #{pkId,jdbcType=INTEGER}
   </select>
-  <delete id="removeTagByTagId" parameterType="java.lang.Integer">
+  <delete id="removeByPrimaryKey" parameterType="java.lang.Integer">
     delete from mb_tag
-    where pk_tag_id = #{pkTagId,jdbcType=INTEGER}
+    where pk_id = #{pkId,jdbcType=INTEGER}
   </delete>
-  <insert id="saveTag" parameterType="com.xd.myspringbootblog.entity.TagDO">
-    insert into mb_tag (pk_tag_id, tag_name, tag_type, 
-      gmt_create, gmt_modified)
-    values (#{pkTagId,jdbcType=INTEGER}, #{tagName,jdbcType=VARCHAR}, #{tagType,jdbcType=VARCHAR}, 
-      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  <insert id="save" keyColumn="pk_id" keyProperty="pkId" parameterType="com.xd.myspringbootblog.entity.TagDO" useGeneratedKeys="true">
+    insert into mb_tag (tag_name, tag_type, gmt_create, 
+      gmt_modified)
+    values (#{tagName,jdbcType=VARCHAR}, #{tagType,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="saveTagSelective" parameterType="com.xd.myspringbootblog.entity.TagDO">
+  <insert id="saveSelective" keyColumn="pk_id" keyProperty="pkId" parameterType="com.xd.myspringbootblog.entity.TagDO" useGeneratedKeys="true">
     insert into mb_tag
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="pkTagId != null">
-        pk_tag_id,
-      </if>
       <if test="tagName != null">
         tag_name,
       </if>
@@ -47,9 +44,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="pkTagId != null">
-        #{pkTagId,jdbcType=INTEGER},
-      </if>
       <if test="tagName != null">
         #{tagName,jdbcType=VARCHAR},
       </if>
@@ -64,7 +58,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByTagIdSelective" parameterType="com.xd.myspringbootblog.entity.TagDO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.xd.myspringbootblog.entity.TagDO">
     update mb_tag
     <set>
       <if test="tagName != null">
@@ -80,14 +74,14 @@
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where pk_tag_id = #{pkTagId,jdbcType=INTEGER}
+    where pk_id = #{pkId,jdbcType=INTEGER}
   </update>
-  <update id="updateByTagId" parameterType="com.xd.myspringbootblog.entity.TagDO">
+  <update id="updateByPrimaryKey" parameterType="com.xd.myspringbootblog.entity.TagDO">
     update mb_tag
     set tag_name = #{tagName,jdbcType=VARCHAR},
       tag_type = #{tagType,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
-    where pk_tag_id = #{pkTagId,jdbcType=INTEGER}
+    where pk_id = #{pkId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -2,10 +2,13 @@ package com.xd.myspringbootblog.controller;
 
 import com.xd.myspringbootblog.authorization.entity.Token;
 import com.xd.myspringbootblog.authorization.manager.JWTTokenManager;
+import com.xd.myspringbootblog.entity.UserAuthDO;
 import com.xd.myspringbootblog.entity.UserDO;
 import com.xd.myspringbootblog.response.Response;
 import com.xd.myspringbootblog.response.StatusCode;
 import com.xd.myspringbootblog.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +23,8 @@ public class LoginController {
 
     @Autowired
     private JWTTokenManager tokenManager;
+
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @RequestMapping(value = "/v1/session", method = RequestMethod.GET)
     public Response getToken(){
@@ -38,27 +43,24 @@ public class LoginController {
             method = RequestMethod.POST,
             produces = "application/json",
             consumes = "application/json")
-    public Response signIn(@RequestBody UserDO user, HttpServletRequest request){
-        System.out.println("sign_in...");
+    public Response signIn(@RequestBody UserAuthDO userAuth, HttpServletRequest request){
+        logger.info("sign_in...");
 
         Response resp = new Response();
-        boolean isValidUser = userService.countMatchLoginUser(user);
-        System.out.println(user.getUserName());
-        System.out.println(user.getPassword());
+        boolean isValidUser = userService.countMatchLoginUser(userAuth);
         if(!isValidUser){
             return resp.failure(StatusCode.USER_LOGIN_ERROR);
         }
 
-        UserDO loginUser = userService.getUserByUserName(user.getUserName());
 
         String loginIp = request.getRemoteAddr();
         Date loginDate = new Date();
-        loginUser.setLastIp(loginIp);
-        loginUser.setLastVisit(loginDate);
+        userAuth.setLastIp(loginIp);
+        userAuth.setLastVisit(loginDate);
 
-        userService.loginSuccess(loginUser);
+        userService.loginSuccess(userAuth);
 
-        Token token = tokenManager.createToken(loginUser.getPkUserId());
+        Token token = tokenManager.createToken(userAuth.getUserId());
 
         return resp.success(token);
 

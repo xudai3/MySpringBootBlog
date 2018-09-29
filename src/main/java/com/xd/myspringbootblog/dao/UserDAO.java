@@ -7,21 +7,19 @@ import java.util.List;
 
 @Repository
 public interface UserDAO {
-    int removeUserByUserId(Integer pkUserId);
+    int removeByPrimaryKey(Integer pkId);
 
-    int saveUser(UserDO userDO);
+    int save(UserDO record);
 
-    int saveUserSelective(UserDO userDO);
+    int saveSelective(UserDO record);
 
-    UserDO getUserByUserId(Integer pkUserId);
+    UserDO getByPrimaryKey(Integer pkId);
 
-    UserDO getUserByUserName(String userName);
+    List<UserDO> listAll();
 
-    List<UserDO> listAllUsers();
+    int updateByPrimaryKeySelective(UserDO record);
 
-    int updateByUserIdSelective(UserDO userDO);
+    int updateByPrimaryKey(UserDO record);
 
-    int updateByUserId(UserDO userDO);
-
-    int countMatchLoginUser(UserDO userDO);
+    int updateCreditByPrimaryKey(Integer pkId, Integer credit);
 }

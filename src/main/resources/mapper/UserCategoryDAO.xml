@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xd.myspringbootblog.dao.LoginLogDAO">
-  <resultMap id="BaseResultMap" type="com.xd.myspringbootblog.entity.LoginLogDO">
+<mapper namespace="com.xd.myspringbootblog.dao.UserCategoryDAO">
+  <resultMap id="BaseResultMap" type="com.xd.myspringbootblog.entity.UserCategoryDO">
     <id column="pk_id" jdbcType="INTEGER" property="pkId" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="ip" jdbcType="VARCHAR" property="ip" />
-    <result column="login_date" jdbcType="TIMESTAMP" property="loginDate" />
+    <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+    <result column="category_count" jdbcType="INTEGER" property="categoryCount" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
   <sql id="Base_Column_List">
-    pk_id, user_id, ip, login_date, gmt_create, gmt_modified
+    pk_id, user_id, category_name, category_count, gmt_create, gmt_modified
   </sql>
-  <select id="getByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from mb_login_log
+    from mb_user_category
     where pk_id = #{pkId,jdbcType=INTEGER}
   </select>
-  <delete id="removeByPrimaryKey" parameterType="java.lang.Integer">
-    delete from mb_login_log
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mb_user_category
     where pk_id = #{pkId,jdbcType=INTEGER}
   </delete>
-  <insert id="save" keyColumn="pk_id" keyProperty="pkId" parameterType="com.xd.myspringbootblog.entity.LoginLogDO" useGeneratedKeys="true">
-    insert into mb_login_log (user_id, ip, login_date, 
+  <insert id="insert" keyColumn="pk_id" keyProperty="pkId" parameterType="com.xd.myspringbootblog.entity.UserCategoryDO" useGeneratedKeys="true">
+    insert into mb_user_category (user_id, category_name, category_count, 
       gmt_create, gmt_modified)
-    values (#{userId,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, #{loginDate,jdbcType=TIMESTAMP}, 
+    values (#{userId,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR}, #{categoryCount,jdbcType=INTEGER}, 
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="saveSelective" keyColumn="pk_id" keyProperty="pkId" parameterType="com.xd.myspringbootblog.entity.LoginLogDO" useGeneratedKeys="true">
-    insert into mb_login_log
+  <insert id="insertSelective" keyColumn="pk_id" keyProperty="pkId" parameterType="com.xd.myspringbootblog.entity.UserCategoryDO" useGeneratedKeys="true">
+    insert into mb_user_category
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
         user_id,
       </if>
-      <if test="ip != null">
-        ip,
+      <if test="categoryName != null">
+        category_name,
       </if>
-      <if test="loginDate != null">
-        login_date,
+      <if test="categoryCount != null">
+        category_count,
       </if>
       <if test="gmtCreate != null">
         gmt_create,
@@ -51,11 +51,11 @@
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="ip != null">
-        #{ip,jdbcType=VARCHAR},
+      <if test="categoryName != null">
+        #{categoryName,jdbcType=VARCHAR},
       </if>
-      <if test="loginDate != null">
-        #{loginDate,jdbcType=TIMESTAMP},
+      <if test="categoryCount != null">
+        #{categoryCount,jdbcType=INTEGER},
       </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
@@ -65,17 +65,17 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xd.myspringbootblog.entity.LoginLogDO">
-    update mb_login_log
+  <update id="updateByPrimaryKeySelective" parameterType="com.xd.myspringbootblog.entity.UserCategoryDO">
+    update mb_user_category
     <set>
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="ip != null">
-        ip = #{ip,jdbcType=VARCHAR},
+      <if test="categoryName != null">
+        category_name = #{categoryName,jdbcType=VARCHAR},
       </if>
-      <if test="loginDate != null">
-        login_date = #{loginDate,jdbcType=TIMESTAMP},
+      <if test="categoryCount != null">
+        category_count = #{categoryCount,jdbcType=INTEGER},
       </if>
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
@@ -86,11 +86,11 @@
     </set>
     where pk_id = #{pkId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.xd.myspringbootblog.entity.LoginLogDO">
-    update mb_login_log
+  <update id="updateByPrimaryKey" parameterType="com.xd.myspringbootblog.entity.UserCategoryDO">
+    update mb_user_category
     set user_id = #{userId,jdbcType=INTEGER},
-      ip = #{ip,jdbcType=VARCHAR},
-      login_date = #{loginDate,jdbcType=TIMESTAMP},
+      category_name = #{categoryName,jdbcType=VARCHAR},
+      category_count = #{categoryCount,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
     where pk_id = #{pkId,jdbcType=INTEGER}

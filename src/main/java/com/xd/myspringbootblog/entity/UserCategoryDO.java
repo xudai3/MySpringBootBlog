@@ -4,24 +4,29 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * mb_article_tag
+ * mb_user_category
  * @author 
  */
-public class ArticleTagDO implements Serializable {
+public class UserCategoryDO implements Serializable {
     /**
-     * 文章标签关系表主键ID
+     * 用户自定义分类表主键ID
      */
     private Integer pkId;
 
     /**
-     * 文章ID
+     * 用户ID
      */
-    private Integer articleId;
+    private Integer userId;
 
     /**
-     * 标签ID
+     * 自定义分类名称
      */
-    private Integer tagId;
+    private String categoryName;
+
+    /**
+     * 该分类下文章总数
+     */
+    private Integer categoryCount;
 
     /**
      * 创建时间
@@ -43,20 +48,28 @@ public class ArticleTagDO implements Serializable {
         this.pkId = pkId;
     }
 
-    public Integer getArticleId() {
-        return articleId;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public Integer getTagId() {
-        return tagId;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setTagId(Integer tagId) {
-        this.tagId = tagId;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public Integer getCategoryCount() {
+        return categoryCount;
+    }
+
+    public void setCategoryCount(Integer categoryCount) {
+        this.categoryCount = categoryCount;
     }
 
     public Date getGmtCreate() {
@@ -86,10 +99,11 @@ public class ArticleTagDO implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        ArticleTagDO other = (ArticleTagDO) that;
+        UserCategoryDO other = (UserCategoryDO) that;
         return (this.getPkId() == null ? other.getPkId() == null : this.getPkId().equals(other.getPkId()))
-            && (this.getArticleId() == null ? other.getArticleId() == null : this.getArticleId().equals(other.getArticleId()))
-            && (this.getTagId() == null ? other.getTagId() == null : this.getTagId().equals(other.getTagId()))
+            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+            && (this.getCategoryName() == null ? other.getCategoryName() == null : this.getCategoryName().equals(other.getCategoryName()))
+            && (this.getCategoryCount() == null ? other.getCategoryCount() == null : this.getCategoryCount().equals(other.getCategoryCount()))
             && (this.getGmtCreate() == null ? other.getGmtCreate() == null : this.getGmtCreate().equals(other.getGmtCreate()))
             && (this.getGmtModified() == null ? other.getGmtModified() == null : this.getGmtModified().equals(other.getGmtModified()));
     }
@@ -99,8 +113,9 @@ public class ArticleTagDO implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getPkId() == null) ? 0 : getPkId().hashCode());
-        result = prime * result + ((getArticleId() == null) ? 0 : getArticleId().hashCode());
-        result = prime * result + ((getTagId() == null) ? 0 : getTagId().hashCode());
+        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getCategoryName() == null) ? 0 : getCategoryName().hashCode());
+        result = prime * result + ((getCategoryCount() == null) ? 0 : getCategoryCount().hashCode());
         result = prime * result + ((getGmtCreate() == null) ? 0 : getGmtCreate().hashCode());
         result = prime * result + ((getGmtModified() == null) ? 0 : getGmtModified().hashCode());
         return result;
@@ -113,8 +128,9 @@ public class ArticleTagDO implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", pkId=").append(pkId);
-        sb.append(", articleId=").append(articleId);
-        sb.append(", tagId=").append(tagId);
+        sb.append(", userId=").append(userId);
+        sb.append(", categoryName=").append(categoryName);
+        sb.append(", categoryCount=").append(categoryCount);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModified=").append(gmtModified);
         sb.append(", serialVersionUID=").append(serialVersionUID);

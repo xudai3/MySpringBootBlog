@@ -32,7 +32,7 @@ import java.util.Set;
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private static final Logger logger = LoggerFactory.getLogger(RedisConfig.class);
 
 //    @Value("${spring.redis.hostName}")
 //    private String hostName;
